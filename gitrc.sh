@@ -1,6 +1,12 @@
 # For colours and formatting check: https://misc.flogisoft.com/bash/tip_colors_and_formatting
 
 ############################
+#   Configuration
+############################
+
+MAIN_BRANCH="develop"
+
+############################
 #   Helpers
 ############################
 
@@ -25,13 +31,13 @@ function is_existing_branch() {
 #   ------------
 #   Checks out `<branch>`.
 #   If if does't exist, then it creates a new one.
-#   If no `<branch>` is provided, then it defaults to checking out `develop` and performing a `git pull`.
+#   If no `<branch>` is provided, then it defaults to checking out `$MAIN_BRANCH` and performing a `git pull`.
 ############################
 
 function c() {
 	if [ $# -eq 0 ]; 
 	then
-		git checkout develop # && git pull -p --ff-only
+		git checkout $MAIN_BRANCH # && git pull -p --ff-only
 		
 	elif is_existing_branch "$1"; 
 	then
@@ -81,12 +87,12 @@ function cm() {
 ############################
 #   reb
 #   --
-#   Rebases the current branch onto `develop`, after having pulled `origin/develop`
+#   Rebases the current branch onto `$MAIN_BRANCH`, after having pulled `origin/$MAIN_BRANCH`
 ############################
 
 function reb() {
-	git fetch origin develop:develop
-	git rebase develop
+	git fetch origin $MAIN_BRANCH:$MAIN_BRANCH
+	git rebase $MAIN_BRANCH
 }
 
 
@@ -116,7 +122,7 @@ function b() {
 	if [ "$1" = "-a" ]; then
 		echo $branches_ASCII_art && git branch --sort=-committerdate
 	else
-		echo $branches_ASCII_art && git branch --sort=-committerdate | grep -vE "develop|_"
+		echo $branches_ASCII_art && git branch --sort=-committerdate | grep -vE "$MAIN_BRANCH|_"
 	fi
 }
 
@@ -125,13 +131,13 @@ function b() {
 #   d [<branch>]
 #   ------------
 #   deletes `<branch>`. If no parameter given, it defaults to 
-#   deleting the current branch and checking out `develop`.
+#   deleting the current branch and checking out `$MAIN_BRANCH`.
 ############################
 
 function d() {
 	if [ $# -eq 0 ]; then
 		local branch=$(git branch --show-current)
-		git checkout develop &>/dev/null
+		git checkout $MAIN_BRANCH &>/dev/null
 	else
 		local branch=$1		
 	fi
@@ -159,8 +165,8 @@ complete -C "git branch --no-color" d
 
 local format="%C(yellow)%h %C(blue)%aN %C(green)(%cr)%n%C(white)%s%C(yellow)%d%C(reset)%n"
 
-alias l='git log --oneline HEAD --not develop --color --use-mailmap --pretty=format:"$format" -6 | cat'
-alias lll='git log --oneline HEAD --not develop --color --use-mailmap --pretty=format:"$format" -4 --name-status | cat'
+alias l='git log --oneline HEAD --not $MAIN_BRANCH --color --use-mailmap --pretty=format:"$format" -6 | cat'
+alias lll='git log --oneline HEAD --not $MAIN_BRANCH --color --use-mailmap --pretty=format:"$format" -4 --name-status | cat'
 
 
 ############################
