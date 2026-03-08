@@ -39,8 +39,8 @@ alias gp='git pull'
 #   c [<branch>]
 #   ------------
 #   Checks out `<branch>`.
-#   If if does't exist, then it creates a new one.
-#   If no `<branch>` is provided, then it defaults to checking out `$MAIN_BRANCH` and performing a `git pull`.
+#   If it doesn't exist, then it creates a new one.
+#   If no `<branch>` is provided, then it defaults to checking out `$MAIN_BRANCH`.
 ############################
 
 function c() {
@@ -76,7 +76,7 @@ function cc() {
 ############################
 #   cm [<message>]
 #   --------------
-#   Commits the files in stating. If there are no files in staging, then it commits all the files.
+#   Commits the files in staging. If there are no files in staging, then it commits all the files.
 #   If no `<message>` is provided, then it amends the previous commit and keeps the same message.
 ############################
 
@@ -96,7 +96,7 @@ function cm() {
 ############################
 #   reb
 #   --
-#   Rebases the current branch onto `$MAIN_BRANCH`, after having pulled `origin/$MAIN_BRANCH`
+#   Rebases the current branch onto `$MAIN_BRANCH`, after having pulled `$MAIN_BRANCH`
 ############################
 
 function reb() {
@@ -123,7 +123,7 @@ function p() {
 ############################
 #   b
 #   -
-#   `git branch`
+#   `git branch`. Use `-a` to show all branches.
 ############################
 
 branches_ASCII_art='  /|\\'
@@ -181,7 +181,7 @@ alias lll='git log --oneline HEAD --not $MAIN_BRANCH --color --use-mailmap --pre
 ############################
 #   s
 #   -
-#   `git staus`
+#   `git status`
 ############################
 
 alias s='git status'
