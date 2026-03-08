@@ -106,6 +106,21 @@ function reb() {
 
 
 ############################
+#   rebi [<commit>]
+#   --
+#   Interactively rebases the current branch onto `<commit>`, defaulting to `$MAIN_BRANCH`.
+############################
+
+function rebi() {
+	if [ $# -eq 0 ]; then
+		git rebase -i $MAIN_BRANCH
+	else
+		git rebase -i "$1"
+	fi
+}
+
+
+############################
 #   p
 #   -
 #   `git push`. If it doesn't track a remote branch then it sets one up.
