@@ -27,6 +27,15 @@ function is_existing_branch() {
 
 
 ############################
+#   gp
+#   --
+#   `git pull`
+############################
+
+alias gp='git pull'
+
+
+############################
 #   c [<branch>]
 #   ------------
 #   Checks out `<branch>`.
@@ -165,7 +174,7 @@ complete -C "git branch --no-color" d
 
 local format="%C(yellow)%h %C(blue)%aN %C(green)(%cr)%n%C(white)%s%C(yellow)%d%C(reset)%n"
 
-alias l='git log --oneline HEAD --not $MAIN_BRANCH --color --use-mailmap --pretty=format:"$format" -6 | cat'
+alias l='git log --oneline HEAD --not $MAIN_BRANCH --color --use-mailmap --pretty=format:"$format" -10 | cat'
 alias lll='git log --oneline HEAD --not $MAIN_BRANCH --color --use-mailmap --pretty=format:"$format" -4 --name-status | cat'
 
 
